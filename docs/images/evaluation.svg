@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="900" viewBox="0 0 1360 900" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L10,4 L0,8 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <style>
+    .box-title  { font-size: 14px; font-weight: 600; fill: #0f172a; }
+    .box-sub    { font-size: 11.5px; fill: #475569; }
+    .edge-label { font-size: 12px; fill: #334155; font-style: italic; }
+    .edge       { stroke: #475569; stroke-width: 1.6; fill: none; marker-end: url(#arr); }
+    .lane-label { font-size: 12.5px; font-weight: 600; letter-spacing: 1px; }
+  </style>
+
+  <text x="680" y="30" text-anchor="middle" font-size="20" font-weight="700" fill="#0f172a">Evaluation Pipeline — DeepEval  (backend/evaluate/)</text>
+
+  <!-- Trigger -->
+  <rect x="60" y="60" width="300" height="80" rx="10" fill="#ecfdf5" stroke="#10b981" stroke-width="1.8"/>
+  <text x="210" y="85" text-anchor="middle" class="box-title">Trigger</text>
+  <text x="210" y="105" text-anchor="middle" class="box-sub">POST /evaluate {pdf_path, goldens_file, max_cases}</text>
+  <text x="210" y="121" text-anchor="middle" class="box-sub">or CLI: python -m backend.evaluate.evaluate</text>
+
+  <path class="edge" d="M360,100 L440,100"/>
+  <text x="368" y="90" class="edge-label">subprocess (clean event loop)</text>
+
+  <!-- Inputs -->
+  <rect x="445" y="60" width="300" height="80" rx="10" fill="#ffffff" stroke="#0ea5e9" stroke-width="1.8"/>
+  <text x="595" y="85" text-anchor="middle" class="box-title">Goldens (JSON)</text>
+  <text x="595" y="105" text-anchor="middle" class="box-sub">goldens/axtria_leave_policy.json · failed_cases.json</text>
+  <text x="595" y="121" text-anchor="middle" class="box-sub">each case: {input, expected_output}</text>
+
+  <path class="edge" d="M745,100 L825,100"/>
+
+  <rect x="830" y="60" width="300" height="80" rx="10" fill="#ffffff" stroke="#0ea5e9" stroke-width="1.8"/>
+  <text x="980" y="85" text-anchor="middle" class="box-title">Ingest PDF once</text>
+  <text x="980" y="105" text-anchor="middle" class="box-sub">shared eval_{uuid} session · full document pipeline</text>
+  <text x="980" y="121" text-anchor="middle" class="box-sub">reused across all test cases (not per case)</text>
+
+  <path class="edge" d="M980,140 L980,180 L680,180 L680,208"/>
+
+  <!-- Per-case run -->
+  <rect x="380" y="210" width="600" height="130" rx="10" fill="#ffffff" stroke="#16a34a" stroke-width="1.8"/>
+  <text x="680" y="235" text-anchor="middle" class="box-title">_run_query — per golden, through the real RAG subgraph</text>
+  <text x="680" y="258" text-anchor="middle" class="box-sub">compiled rag_graph.invoke(query) — same code path as production chat</text>
+  <text x="680" y="276" text-anchor="middle" class="box-sub">captures: answer · retrieval_context (document_summary chunks excluded)</text>
+  <text x="680" y="294" text-anchor="middle" class="box-sub">timings via step callback: total_s, retrieval_s, generation_s</text>
+  <text x="680" y="312" text-anchor="middle" class="box-sub">token totals parsed from §LLM badge lines</text>
+  <text x="680" y="330" text-anchor="middle" class="box-sub" font-style="italic">→ LLMTestCase(input, actual_output, expected_output, retrieval_context)</text>
+
+  <path class="edge" d="M680,340 L680,375"/>
+
+  <!-- Metrics band -->
+  <rect x="40" y="378" width="1280" height="290" rx="10" fill="#fefce8" stroke="#ca8a04" stroke-dasharray="5 4"/>
+  <text x="60" y="403" class="lane-label" fill="#a16207">10 METRICS — thresholds in config.EVAL_THRESHOLDS</text>
+
+  <!-- LLM-judged metrics -->
+  <rect x="65" y="418" width="750" height="230" rx="8" fill="#ffffff" stroke="#ca8a04"/>
+  <text x="440" y="443" text-anchor="middle" class="box-title">LLM-judged (DeepEval · judge = gpt-4.1-mini · concurrency 3, throttle 1 s)</text>
+
+  <text x="90" y="475" class="box-sub" font-weight="600">Contextual Precision ≥ 0.80</text>
+  <text x="90" y="492" class="box-sub">relevant chunks ranked above irrelevant ones</text>
+  <text x="90" y="519" class="box-sub" font-weight="600">Contextual Recall ≥ 0.70</text>
+  <text x="90" y="536" class="box-sub">expected answer attributable to retrieved context</text>
+  <text x="90" y="563" class="box-sub" font-weight="600">Contextual Relevancy ≥ 0.40</text>
+  <text x="90" y="580" class="box-sub">deliberately low — policy chunks are multi-topic,</text>
+  <text x="90" y="596" class="box-sub">so some off-topic sentences are always present</text>
+
+  <text x="460" y="475" class="box-sub" font-weight="600">Faithfulness ≥ 0.90</text>
+  <text x="460" y="492" class="box-sub">answer contains no claims outside the context</text>
+  <text x="460" y="519" class="box-sub" font-weight="600">Answer Relevancy ≥ 0.80</text>
+  <text x="460" y="536" class="box-sub">answer actually addresses the question</text>
+  <text x="460" y="563" class="box-sub" font-weight="600">Correctness (GEval) ≥ 0.85</text>
+  <text x="460" y="580" class="box-sub">semantic match vs expected output; penalises</text>
+  <text x="460" y="596" class="box-sub">hallucinations and contradictions</text>
+
+  <!-- Perf metrics -->
+  <rect x="845" y="418" width="450" height="230" rx="8" fill="#ffffff" stroke="#ca8a04"/>
+  <text x="1070" y="443" text-anchor="middle" class="box-title">Performance / cost (free — no judge LLM)</text>
+  <text x="870" y="475" class="box-sub" font-weight="600">Latency ≤ 60 s</text>
+  <text x="870" y="492" class="box-sub">total wall-clock per query</text>
+  <text x="870" y="519" class="box-sub" font-weight="600">Retrieval Time ≤ 5 s</text>
+  <text x="870" y="536" class="box-sub">vector search + rerank</text>
+  <text x="870" y="563" class="box-sub" font-weight="600">Generation Time ≤ 20 s</text>
+  <text x="870" y="580" class="box-sub">LLM answer phase</text>
+  <text x="870" y="607" class="box-sub" font-weight="600">Token Usage ≤ 5000</text>
+  <text x="870" y="624" class="box-sub">prompt + completion tokens across the graph run</text>
+
+  <path class="edge" d="M680,668 L680,703"/>
+
+  <!-- Reports -->
+  <rect x="380" y="705" width="600" height="90" rx="10" fill="#ffffff" stroke="#0ea5e9" stroke-width="1.8"/>
+  <text x="680" y="730" text-anchor="middle" class="box-title">Reports (backend/evaluate/reports/)</text>
+  <text x="680" y="750" text-anchor="middle" class="box-sub">{timestamp}_{goldens_stem}.json — full per-case scores, reasons, timings</text>
+  <text x="680" y="766" text-anchor="middle" class="box-sub">latest.json always overwritten · __RESULT__ JSON printed for the API caller</text>
+  <text x="680" y="782" text-anchor="middle" class="box-sub">baseline.json kept as the reference run</text>
+
+  <path class="edge" d="M680,795 L680,825"/>
+
+  <!-- Compare -->
+  <rect x="380" y="827" width="600" height="60" rx="10" fill="#fff7ed" stroke="#f97316" stroke-width="1.8"/>
+  <text x="680" y="850" text-anchor="middle" class="box-title">compare.py — regression gate</text>
+  <text x="680" y="870" text-anchor="middle" class="box-sub">diff baseline vs latest per question/metric · Δ ≥ 0.05 flagged · exit 1 on regression</text>
+</svg>

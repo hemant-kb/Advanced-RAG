@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="960" viewBox="0 0 1360 960" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L10,4 L0,8 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <style>
+    .band-label { font-size: 13px; font-weight: 600; fill: #64748b; letter-spacing: 1px; }
+    .box-title  { font-size: 14px; font-weight: 600; fill: #0f172a; }
+    .box-sub    { font-size: 11.5px; fill: #475569; }
+    .edge-label { font-size: 11.5px; fill: #334155; font-style: italic; }
+    .edge       { stroke: #475569; stroke-width: 1.6; fill: none; marker-end: url(#arr); }
+  </style>
+
+  <text x="680" y="30" text-anchor="middle" font-size="20" font-weight="700" fill="#0f172a">Multimodal RAG Chatbot — Full Architecture</text>
+
+  <!-- ── Band 1: Frontend ─────────────────────────────── -->
+  <rect x="30" y="55" width="1300" height="150" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-dasharray="5 4"/>
+  <text x="50" y="80" class="band-label" fill="#4f46e5">FRONTEND — React + TypeScript + Vite  (frontend/src)</text>
+
+  <rect x="60" y="95" width="180" height="90" rx="8" fill="#ffffff" stroke="#6366f1"/>
+  <text x="150" y="120" text-anchor="middle" class="box-title">App.tsx</text>
+  <text x="150" y="140" text-anchor="middle" class="box-sub">session list + active id</text>
+  <text x="150" y="156" text-anchor="middle" class="box-sub">theme · thinking-step caches</text>
+
+  <rect x="270" y="95" width="170" height="90" rx="8" fill="#ffffff" stroke="#6366f1"/>
+  <text x="355" y="120" text-anchor="middle" class="box-title">Sidebar.tsx</text>
+  <text x="355" y="140" text-anchor="middle" class="box-sub">new / rename / delete</text>
+  <text x="355" y="156" text-anchor="middle" class="box-sub">ConfirmDialog</text>
+
+  <rect x="470" y="95" width="200" height="90" rx="8" fill="#ffffff" stroke="#6366f1"/>
+  <text x="570" y="120" text-anchor="middle" class="box-title">ChatWindow.tsx</text>
+  <text x="570" y="140" text-anchor="middle" class="box-sub">PDF upload · input · history</text>
+  <text x="570" y="156" text-anchor="middle" class="box-sub">context-limit banner</text>
+
+  <rect x="700" y="95" width="190" height="90" rx="8" fill="#ffffff" stroke="#6366f1"/>
+  <text x="795" y="120" text-anchor="middle" class="box-title">useStream.ts</text>
+  <text x="795" y="140" text-anchor="middle" class="box-sub">SSE reader · event parser</text>
+  <text x="795" y="156" text-anchor="middle" class="box-sub">tokens · steps · summary</text>
+
+  <rect x="920" y="95" width="200" height="90" rx="8" fill="#ffffff" stroke="#6366f1"/>
+  <text x="1020" y="118" text-anchor="middle" class="box-title">MessageBubble.tsx</text>
+  <text x="1020" y="138" text-anchor="middle" class="box-sub">markdown + code blocks</text>
+  <text x="1020" y="154" text-anchor="middle" class="box-sub">ThinkingBlock · badges</text>
+
+  <rect x="1150" y="95" width="160" height="90" rx="8" fill="#ffffff" stroke="#6366f1"/>
+  <text x="1230" y="118" text-anchor="middle" class="box-title">PipelineSummary</text>
+  <text x="1230" y="138" text-anchor="middle" class="box-sub">cost · tokens · timings</text>
+  <text x="1230" y="154" text-anchor="middle" class="box-sub">per-answer tiles</text>
+
+  <!-- Frontend -> API arrows -->
+  <path class="edge" d="M400,205 L400,255"/>
+  <text x="410" y="235" class="edge-label">REST (sessions, history)</text>
+  <path class="edge" d="M680,205 L680,255"/>
+  <text x="690" y="235" class="edge-label">POST /chat + /upload → SSE stream</text>
+
+  <!-- ── Band 2: API layer ────────────────────────────── -->
+  <rect x="30" y="260" width="1300" height="150" rx="10" fill="#ecfdf5" stroke="#10b981" stroke-dasharray="5 4"/>
+  <text x="50" y="285" class="band-label" fill="#059669">API LAYER — FastAPI  (backend/api.py · backend/routes/ · backend/session_store.py)</text>
+
+  <rect x="60" y="300" width="200" height="90" rx="8" fill="#ffffff" stroke="#10b981"/>
+  <text x="160" y="325" text-anchor="middle" class="box-title">Sessions CRUD</text>
+  <text x="160" y="345" text-anchor="middle" class="box-sub">POST/GET/PATCH/DELETE</text>
+  <text x="160" y="361" text-anchor="middle" class="box-sub">/sessions · auto-name (LLM)</text>
+
+  <rect x="290" y="300" width="210" height="90" rx="8" fill="#ffffff" stroke="#10b981"/>
+  <text x="395" y="325" text-anchor="middle" class="box-title">Upload endpoint</text>
+  <text x="395" y="345" text-anchor="middle" class="box-sub">/sessions/{id}/upload</text>
+  <text x="395" y="361" text-anchor="middle" class="box-sub">SSE progress → ingest_pdf</text>
+
+  <rect x="530" y="300" width="240" height="90" rx="8" fill="#ffffff" stroke="#10b981"/>
+  <text x="650" y="325" text-anchor="middle" class="box-title">Chat streaming</text>
+  <text x="650" y="345" text-anchor="middle" class="box-sub">astream_events → SSE events</text>
+  <text x="650" y="361" text-anchor="middle" class="box-sub">badge dicts → pipeline metrics</text>
+
+  <rect x="800" y="300" width="200" height="90" rx="8" fill="#ffffff" stroke="#10b981"/>
+  <text x="900" y="325" text-anchor="middle" class="box-title">/evaluate</text>
+  <text x="900" y="345" text-anchor="middle" class="box-sub">spawns DeepEval run</text>
+  <text x="900" y="361" text-anchor="middle" class="box-sub">as subprocess</text>
+
+  <rect x="1030" y="300" width="280" height="90" rx="8" fill="#ffffff" stroke="#10b981"/>
+  <text x="1170" y="325" text-anchor="middle" class="box-title">Context-limit guard + logging</text>
+  <text x="1170" y="345" text-anchor="middle" class="box-sub">warn ≥10k chars · stop ≥20k chars</text>
+  <text x="1170" y="361" text-anchor="middle" class="box-sub">JSON request log → logs/requests.jsonl</text>
+
+  <!-- API -> Core arrows -->
+  <path class="edge" d="M395,410 L395,460"/>
+  <text x="405" y="440" class="edge-label">ingest_pdf()</text>
+  <path class="edge" d="M650,410 L650,460"/>
+  <text x="660" y="440" class="edge-label">graph.astream_events()</text>
+  <path class="edge" d="M900,410 L900,460"/>
+  <text x="910" y="440" class="edge-label">python -m backend.evaluate.evaluate</text>
+
+  <!-- ── Band 3: Core ─────────────────────────────────── -->
+  <rect x="30" y="465" width="1300" height="185" rx="10" fill="#fefce8" stroke="#ca8a04" stroke-dasharray="5 4"/>
+  <text x="50" y="490" class="band-label" fill="#a16207">CORE — LangGraph pipeline  (backend/graph.py · backend/rag/)</text>
+
+  <rect x="60" y="505" width="230" height="125" rx="8" fill="#ffffff" stroke="#ca8a04"/>
+  <text x="175" y="530" text-anchor="middle" class="box-title">document_pipeline.py</text>
+  <text x="175" y="550" text-anchor="middle" class="box-sub">PyMuPDF4LLM extraction</text>
+  <text x="175" y="566" text-anchor="middle" class="box-sub">tables (md / VLM) · image captions</text>
+  <text x="175" y="582" text-anchor="middle" class="box-sub">heading-aware parent/child chunks</text>
+  <text x="175" y="598" text-anchor="middle" class="box-sub">Groq map-reduce doc summary</text>
+
+  <rect x="320" y="505" width="250" height="125" rx="8" fill="#ffffff" stroke="#ca8a04"/>
+  <text x="445" y="530" text-anchor="middle" class="box-title">graph.py → rag_graph.py</text>
+  <text x="445" y="550" text-anchor="middle" class="box-sub">entry (guardrails) · summary fast-path</text>
+  <text x="445" y="566" text-anchor="middle" class="box-sub">retrieval · score-based relevancy (CRAG)</text>
+  <text x="445" y="582" text-anchor="middle" class="box-sub">1× query rewrite · 2-phase answer</text>
+  <text x="445" y="598" text-anchor="middle" class="box-sub">step _emit() → SSE thinking steps</text>
+
+  <rect x="600" y="505" width="240" height="125" rx="8" fill="#ffffff" stroke="#ca8a04"/>
+  <text x="720" y="530" text-anchor="middle" class="box-title">vector_store.py</text>
+  <text x="720" y="550" text-anchor="middle" class="box-sub">dense + BM25 sparse (RRF fusion)</text>
+  <text x="720" y="566" text-anchor="middle" class="box-sub">Cohere rerank top-5</text>
+  <text x="720" y="582" text-anchor="middle" class="box-sub">structural section promotion</text>
+  <text x="720" y="598" text-anchor="middle" class="box-sub">per-session Qdrant collections</text>
+
+  <rect x="870" y="505" width="200" height="125" rx="8" fill="#ffffff" stroke="#ca8a04"/>
+  <text x="970" y="530" text-anchor="middle" class="box-title">guardrails.py</text>
+  <text x="970" y="550" text-anchor="middle" class="box-sub">prompt-injection patterns</text>
+  <text x="970" y="566" text-anchor="middle" class="box-sub">retrieval confidence 0.45</text>
+  <text x="970" y="582" text-anchor="middle" class="box-sub">grounded-answer prompt</text>
+
+  <rect x="1100" y="505" width="210" height="125" rx="8" fill="#ffffff" stroke="#ca8a04"/>
+  <text x="1205" y="530" text-anchor="middle" class="box-title">audit.py</text>
+  <text x="1205" y="550" text-anchor="middle" class="box-sub">IngestionAudit + QueryAudit</text>
+  <text x="1205" y="566" text-anchor="middle" class="box-sub">every stage artifact saved</text>
+  <text x="1205" y="582" text-anchor="middle" class="box-sub">to data/runs/{session}/</text>
+
+  <!-- Core -> storage / external arrows -->
+  <path class="edge" d="M175,650 L175,712"/>
+  <path class="edge" d="M445,650 L445,712"/>
+  <path class="edge" d="M720,650 L720,712"/>
+  <path class="edge" d="M1205,650 L1205,712"/>
+
+  <!-- ── Band 4: Storage ──────────────────────────────── -->
+  <rect x="30" y="717" width="640" height="110" rx="10" fill="#f1f5f9" stroke="#64748b" stroke-dasharray="5 4"/>
+  <text x="50" y="742" class="band-label">LOCAL STORAGE (data/ · logs/)</text>
+  <rect x="55" y="755" width="140" height="55" rx="8" fill="#ffffff" stroke="#64748b"/>
+  <text x="125" y="778" text-anchor="middle" class="box-title">sessions.db</text>
+  <text x="125" y="796" text-anchor="middle" class="box-sub">SQLite registry</text>
+  <rect x="210" y="755" width="150" height="55" rx="8" fill="#ffffff" stroke="#64748b"/>
+  <text x="285" y="778" text-anchor="middle" class="box-title">checkpoints.db</text>
+  <text x="285" y="796" text-anchor="middle" class="box-sub">LangGraph state</text>
+  <rect x="375" y="755" width="130" height="55" rx="8" fill="#ffffff" stroke="#64748b"/>
+  <text x="440" y="778" text-anchor="middle" class="box-title">uploads/ images/</text>
+  <text x="440" y="796" text-anchor="middle" class="box-sub">PDFs · PNGs</text>
+  <rect x="520" y="755" width="130" height="55" rx="8" fill="#ffffff" stroke="#64748b"/>
+  <text x="585" y="778" text-anchor="middle" class="box-title">runs/</text>
+  <text x="585" y="796" text-anchor="middle" class="box-sub">audit artifacts</text>
+
+  <!-- ── Band 5: External services ────────────────────── -->
+  <rect x="690" y="717" width="640" height="220" rx="10" fill="#fff7ed" stroke="#f97316" stroke-dasharray="5 4"/>
+  <text x="710" y="742" class="band-label" fill="#c2410c">EXTERNAL SERVICES</text>
+
+  <rect x="710" y="755" width="190" height="75" rx="8" fill="#ffffff" stroke="#f97316"/>
+  <text x="805" y="778" text-anchor="middle" class="box-title">OpenAI</text>
+  <text x="805" y="796" text-anchor="middle" class="box-sub">gpt-5-nano (chat + vision)</text>
+  <text x="805" y="812" text-anchor="middle" class="box-sub">text-embedding-3-small</text>
+
+  <rect x="920" y="755" width="190" height="75" rx="8" fill="#ffffff" stroke="#f97316"/>
+  <text x="1015" y="778" text-anchor="middle" class="box-title">Qdrant Cloud</text>
+  <text x="1015" y="796" text-anchor="middle" class="box-sub">dense 1536-d + sparse BM25</text>
+  <text x="1015" y="812" text-anchor="middle" class="box-sub">collection per session</text>
+
+  <rect x="1130" y="755" width="180" height="75" rx="8" fill="#ffffff" stroke="#f97316"/>
+  <text x="1220" y="778" text-anchor="middle" class="box-title">Cohere</text>
+  <text x="1220" y="796" text-anchor="middle" class="box-sub">rerank-v4.0-fast</text>
+  <text x="1220" y="812" text-anchor="middle" class="box-sub">~300 ms cross-encoder</text>
+
+  <rect x="710" y="845" width="190" height="75" rx="8" fill="#ffffff" stroke="#f97316"/>
+  <text x="805" y="868" text-anchor="middle" class="box-title">Groq</text>
+  <text x="805" y="886" text-anchor="middle" class="box-sub">gpt-oss-120b</text>
+  <text x="805" y="902" text-anchor="middle" class="box-sub">ingest-time summaries</text>
+
+  <rect x="920" y="845" width="190" height="75" rx="8" fill="#ffffff" stroke="#f97316"/>
+  <text x="1015" y="868" text-anchor="middle" class="box-title">LangSmith</text>
+  <text x="1015" y="886" text-anchor="middle" class="box-sub">tracing: every node,</text>
+  <text x="1015" y="902" text-anchor="middle" class="box-sub">LLM call and ingest run</text>
+
+  <rect x="1130" y="845" width="180" height="75" rx="8" fill="#ffffff" stroke="#f97316"/>
+  <text x="1220" y="868" text-anchor="middle" class="box-title">DeepEval</text>
+  <text x="1220" y="886" text-anchor="middle" class="box-sub">gpt-4.1-mini judge</text>
+  <text x="1220" y="902" text-anchor="middle" class="box-sub">10-metric evaluation</text>
+</svg>

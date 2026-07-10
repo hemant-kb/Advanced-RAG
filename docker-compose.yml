@@ -1,0 +1,13 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - ./uploads:/app/uploads
+      - ./checkpoints.db:/app/checkpoints.db
+      - ./sessions.db:/app/sessions.db
+      - ./embedding_cache:/app/embedding_cache
+    restart: unless-stopped

@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="1100" viewBox="0 0 1360 1100" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L10,4 L0,8 z" fill="#475569"/>
+    </marker>
+    <marker id="arrR" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L10,4 L0,8 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <style>
+    .box-title  { font-size: 14px; font-weight: 600; fill: #0f172a; }
+    .box-sub    { font-size: 11.5px; fill: #475569; }
+    .edge-label { font-size: 12px; fill: #334155; font-style: italic; }
+    .edge       { stroke: #475569; stroke-width: 1.6; fill: none; marker-end: url(#arr); }
+    .edge-red   { stroke: #dc2626; stroke-width: 1.6; fill: none; marker-end: url(#arrR); stroke-dasharray: 6 4; }
+    .diamond    { fill: #fff7ed; stroke: #f97316; stroke-width: 1.8; }
+  </style>
+
+  <text x="680" y="30" text-anchor="middle" font-size="20" font-weight="700" fill="#0f172a">RAG Query Graph — LangGraph subgraph  (backend/rag/rag_graph.py)</text>
+  <text x="680" y="52" text-anchor="middle" font-size="12.5" fill="#64748b">Every node emits thinking steps + §badges via _emit() → streamed to the UI as SSE events by api.py</text>
+
+  <!-- User query -->
+  <rect x="560" y="75" width="240" height="55" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="1.8"/>
+  <text x="680" y="98" text-anchor="middle" class="box-title">User query</text>
+  <text x="680" y="116" text-anchor="middle" class="box-sub">POST /sessions/{id}/chat → graph.astream_events</text>
+
+  <path class="edge" d="M680,130 L680,160"/>
+
+  <!-- entry node -->
+  <rect x="530" y="162" width="300" height="70" rx="10" fill="#ffffff" stroke="#0ea5e9" stroke-width="1.8"/>
+  <text x="680" y="187" text-anchor="middle" class="box-title">entry — guardrails</text>
+  <text x="680" y="206" text-anchor="middle" class="box-sub">prompt-injection pattern check (&lt;1 ms, no LLM)</text>
+  <text x="680" y="222" text-anchor="middle" class="box-sub">blocked → fixed rejection answer</text>
+
+  <!-- blocked branch -->
+  <path class="edge-red" d="M830,197 L1080,197 L1080,940"/>
+  <text x="860" y="190" class="edge-label" fill="#dc2626">injection detected → END</text>
+
+  <path class="edge" d="M680,232 L680,262"/>
+
+  <!-- routing diamond -->
+  <polygon class="diamond" points="680,264 830,319 680,374 530,319"/>
+  <text x="680" y="312" text-anchor="middle" class="box-title">entry_routing</text>
+  <text x="680" y="332" text-anchor="middle" class="box-sub">summary-intent keywords?</text>
+
+  <!-- summary fast path -->
+  <path class="edge" d="M830,319 L1000,319"/>
+  <text x="845" y="310" class="edge-label">yes — summary fast-path</text>
+  <rect x="1005" y="280" width="300" height="80" rx="10" fill="#ffffff" stroke="#9333ea" stroke-width="1.8"/>
+  <text x="1155" y="305" text-anchor="middle" class="box-title">summary_node</text>
+  <text x="1155" y="324" text-anchor="middle" class="box-sub">fetch stored document_summary chunk from Qdrant</text>
+  <text x="1155" y="340" text-anchor="middle" class="box-sub">no vector search, no LLM · fallback msg if missing</text>
+  <path class="edge" d="M1155,360 L1155,940 L1128,940"/>
+
+  <!-- retrieval -->
+  <path class="edge" d="M680,374 L680,404"/>
+  <text x="690" y="396" class="edge-label">no — retrieval pipeline</text>
+
+  <rect x="450" y="406" width="460" height="150" rx="10" fill="#ffffff" stroke="#0ea5e9" stroke-width="1.8"/>
+  <text x="680" y="431" text-anchor="middle" class="box-title">retrieval — hybrid search (vector_store.search)</text>
+  <text x="680" y="454" text-anchor="middle" class="box-sub">1. embed query: OpenAI dense 1536-d  +  FastEmbed BM25 sparse</text>
+  <text x="680" y="472" text-anchor="middle" class="box-sub">2. Qdrant prefetch: dense ∪ sparse, RRF fusion → 10 candidates</text>
+  <text x="680" y="490" text-anchor="middle" class="box-sub">3. Cohere rerank-v4.0-fast → top 5 (parent text scored for text chunks)</text>
+  <text x="680" y="508" text-anchor="middle" class="box-sub">4. structural promotion: pin section-heading matches for navigational</text>
+  <text x="680" y="524" text-anchor="middle" class="box-sub">queries ("what is the conclusion…") the reranker would drop</text>
+  <text x="680" y="544" text-anchor="middle" class="box-sub" font-style="italic">falls back to dense-only if the hybrid query fails</text>
+
+  <path class="edge" d="M680,556 L680,586"/>
+
+  <!-- relevancy check -->
+  <rect x="490" y="588" width="380" height="75" rx="10" fill="#ffffff" stroke="#0ea5e9" stroke-width="1.8"/>
+  <text x="680" y="613" text-anchor="middle" class="box-title">relevancy_check — CRAG, score-based (no LLM)</text>
+  <text x="680" y="632" text-anchor="middle" class="box-sub">top Cohere rerank score ≥ 0.45 → relevant</text>
+  <text x="680" y="648" text-anchor="middle" class="box-sub">cross-encoder score is a stronger signal than cosine similarity</text>
+
+  <path class="edge" d="M680,663 L680,693"/>
+
+  <!-- decision -->
+  <polygon class="diamond" points="680,695 820,745 680,795 540,745"/>
+  <text x="680" y="740" text-anchor="middle" class="box-title">relevant?</text>
+  <text x="680" y="758" text-anchor="middle" class="box-sub">after_relevancy_routing</text>
+
+  <!-- rewrite loop -->
+  <path class="edge" d="M540,745 L330,745"/>
+  <text x="350" y="736" class="edge-label">no · rewrite_count &lt; 1</text>
+  <rect x="60" y="700" width="270" height="90" rx="10" fill="#ffffff" stroke="#eab308" stroke-width="1.8"/>
+  <text x="195" y="725" text-anchor="middle" class="box-title">query_rewrite (LLM)</text>
+  <text x="195" y="744" text-anchor="middle" class="box-sub">gpt-5-nano rewrites with more specific</text>
+  <text x="195" y="760" text-anchor="middle" class="box-sub">terminology · clears retrieved_docs</text>
+  <text x="195" y="776" text-anchor="middle" class="box-sub">max 1 rewrite per query</text>
+  <path class="edge" d="M195,700 L195,481 L445,481"/>
+  <text x="210" y="600" class="edge-label">retry retrieval</text>
+
+  <!-- generate answer -->
+  <path class="edge" d="M680,795 L680,825"/>
+  <text x="690" y="817" class="edge-label">yes — or retries exhausted (fallback)</text>
+
+  <rect x="410" y="827" width="540" height="180" rx="10" fill="#ffffff" stroke="#16a34a" stroke-width="1.8"/>
+  <text x="680" y="852" text-anchor="middle" class="box-title">generate_answer — two-phase, caption-first</text>
+  <text x="680" y="875" text-anchor="middle" class="box-sub">context prep: drop document_summary chunks · dedup identical parent texts</text>
+  <text x="680" y="891" text-anchor="middle" class="box-sub">text chunks expand to parent_content (512 tok) · tables/images use raw content</text>
+  <text x="680" y="915" text-anchor="middle" class="box-sub" font-weight="600">Phase 1: gpt-5-nano answers from text + image captions (grounded system prompt)</text>
+  <text x="680" y="933" text-anchor="middle" class="box-sub">cacheable static system prompt · answer ONLY from context · max 150 words</text>
+  <text x="680" y="957" text-anchor="middle" class="box-sub" font-weight="600">Phase 2 (only if Phase 1 emits [NEEDS_VISUAL] and image chunks present):</text>
+  <text x="680" y="975" text-anchor="middle" class="box-sub">load original PNGs from disk → vision LLM answers with actual images</text>
+  <text x="680" y="993" text-anchor="middle" class="box-sub" font-style="italic">no retrieved docs at all → fixed "couldn't find relevant information" answer</text>
+
+  <path class="edge" d="M680,1007 L680,1035"/>
+
+  <!-- END -->
+  <rect x="560" y="1037" width="240" height="50" rx="25" fill="#eef2ff" stroke="#6366f1" stroke-width="1.8"/>
+  <text x="680" y="1058" text-anchor="middle" class="box-title">END — answer streamed</text>
+  <text x="680" y="1075" text-anchor="middle" class="box-sub">tokens · graph_trace · pipeline_summary · done</text>
+
+  <rect x="1020" y="915" width="108" height="50" rx="25" fill="#fef2f2" stroke="#dc2626" stroke-width="1.6"/>
+  <text x="1074" y="945" text-anchor="middle" class="box-title">END</text>
+
+  <!-- side note: state -->
+  <rect x="30" y="120" width="330" height="140" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-dasharray="4 3"/>
+  <text x="195" y="143" text-anchor="middle" class="box-title">RAGState (per thread/session)</text>
+  <text x="45" y="165" class="box-sub">messages — LangGraph checkpointed history (SQLite)</text>
+  <text x="45" y="183" class="box-sub">query · session_id · retrieved_docs</text>
+  <text x="45" y="201" class="box-sub">rewrite_count · is_relevant · answer</text>
+  <text x="45" y="223" class="box-sub" font-style="italic">transient fields reset by api.py at each turn;</text>
+  <text x="45" y="239" class="box-sub" font-style="italic">QueryAudit saves every stage to data/runs/…/queries/</text>
+</svg>

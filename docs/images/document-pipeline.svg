@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="1050" viewBox="0 0 1360 1050" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L10,4 L0,8 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <style>
+    .box-title  { font-size: 14px; font-weight: 600; fill: #0f172a; }
+    .box-sub    { font-size: 11.5px; fill: #475569; }
+    .edge-label { font-size: 11.5px; fill: #334155; font-style: italic; }
+    .edge       { stroke: #475569; stroke-width: 1.6; fill: none; marker-end: url(#arr); }
+    .lane-label { font-size: 12.5px; font-weight: 600; fill: #64748b; letter-spacing: 1px; }
+  </style>
+
+  <text x="680" y="30" text-anchor="middle" font-size="20" font-weight="700" fill="#0f172a">Document Ingestion Pipeline — ingest_pdf()  (backend/rag/document_pipeline.py)</text>
+
+  <!-- Input -->
+  <rect x="560" y="55" width="240" height="60" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="1.8"/>
+  <text x="680" y="80" text-anchor="middle" class="box-title">PDF upload (per session)</text>
+  <text x="680" y="98" text-anchor="middle" class="box-sub">saved to data/uploads/{session}_{name}.pdf</text>
+
+  <path class="edge" d="M680,115 L680,150"/>
+  <text x="690" y="138" class="edge-label">skip if source already ingested</text>
+
+  <!-- Parse -->
+  <rect x="520" y="152" width="320" height="70" rx="10" fill="#ffffff" stroke="#0ea5e9" stroke-width="1.8"/>
+  <text x="680" y="177" text-anchor="middle" class="box-title">PyMuPDF (fitz) + pymupdf4llm.to_markdown</text>
+  <text x="680" y="195" text-anchor="middle" class="box-sub">layout-aware markdown per page · handles multi-column</text>
+  <text x="680" y="211" text-anchor="middle" class="box-sub">encrypted-PDF check · doc title from metadata</text>
+
+  <path class="edge" d="M680,222 L680,258"/>
+  <text x="690" y="246" class="edge-label">ThreadPoolExecutor — 4 parallel page workers</text>
+
+  <!-- Parallel per-page band -->
+  <rect x="40" y="260" width="1280" height="270" rx="10" fill="#fefce8" stroke="#ca8a04" stroke-dasharray="5 4"/>
+  <text x="60" y="285" class="lane-label" fill="#a16207">PHASE 1 — PER-PAGE, IN PARALLEL  (_process_page)</text>
+
+  <!-- Tables lane -->
+  <rect x="65" y="300" width="390" height="210" rx="8" fill="#ffffff" stroke="#ca8a04"/>
+  <text x="260" y="325" text-anchor="middle" class="box-title">TABLES — page.find_tables()</text>
+  <text x="260" y="348" text-anchor="middle" class="box-sub">filters: ≥2 rows, ≥2 cols, not in header/footer margin</text>
+  <text x="260" y="372" text-anchor="middle" class="box-sub" font-weight="600">mode routing:</text>
+  <text x="260" y="390" text-anchor="middle" class="box-sub">low_cost → always markdown (to_pandas → to_markdown)</text>
+  <text x="260" y="406" text-anchor="middle" class="box-sub">hybrid → complexity check (rows &gt; 30, cols &gt; 8,</text>
+  <text x="260" y="422" text-anchor="middle" class="box-sub">empty ratio &gt; 0.3, multi-level headers) → VLM if complex</text>
+  <text x="260" y="438" text-anchor="middle" class="box-sub">high_quality → always VLM</text>
+  <text x="260" y="462" text-anchor="middle" class="box-sub">VLM = table bbox rendered to PNG @2x → gpt-5-nano</text>
+  <text x="260" y="478" text-anchor="middle" class="box-sub">→ markdown table extraction (TABLE_VLM_PROMPT)</text>
+  <text x="260" y="498" text-anchor="middle" class="box-sub" font-style="italic">chunk type = "table"</text>
+
+  <!-- Images lane -->
+  <rect x="485" y="300" width="390" height="210" rx="8" fill="#ffffff" stroke="#ca8a04"/>
+  <text x="680" y="325" text-anchor="middle" class="box-title">IMAGES / CHARTS — page.get_images()</text>
+  <text x="680" y="348" text-anchor="middle" class="box-sub">skip filters: area &lt; 10,000 px² · aspect ratio &gt; 10:1</text>
+  <text x="680" y="364" text-anchor="middle" class="box-sub">solid-colour fills · header/footer margin</text>
+  <text x="680" y="388" text-anchor="middle" class="box-sub">PNG saved to data/images/{session}/pageNNN_xrefN.png</text>
+  <text x="680" y="412" text-anchor="middle" class="box-sub">chart heuristic: nearby text contains %, axis, figure…</text>
+  <text x="680" y="428" text-anchor="middle" class="box-sub">→ CHART_CAPTION_PROMPT else IMAGE_CAPTION_PROMPT</text>
+  <text x="680" y="452" text-anchor="middle" class="box-sub">VLM caption (gpt-5-nano) stored as page_content;</text>
+  <text x="680" y="468" text-anchor="middle" class="box-sub">image_path kept in metadata for vision fallback</text>
+  <text x="680" y="498" text-anchor="middle" class="box-sub" font-style="italic">chunk type = "image" | "chart"</text>
+
+  <!-- Text lane -->
+  <rect x="905" y="300" width="390" height="210" rx="8" fill="#ffffff" stroke="#ca8a04"/>
+  <text x="1100" y="325" text-anchor="middle" class="box-title">TEXT — per-page markdown cleanup</text>
+  <text x="1100" y="350" text-anchor="middle" class="box-sub">table pipe-rows stripped (so tables are not</text>
+  <text x="1100" y="366" text-anchor="middle" class="box-sub">double-counted as text)</text>
+  <text x="1100" y="392" text-anchor="middle" class="box-sub">raw + clean page text saved to the audit trail</text>
+  <text x="1100" y="418" text-anchor="middle" class="box-sub">returned upward for Phase-2 full-document</text>
+  <text x="1100" y="434" text-anchor="middle" class="box-sub">assembly (keeps cross-page sections intact)</text>
+
+  <path class="edge" d="M1100,530 L1100,566 L680,566 L680,588"/>
+  <text x="700" y="580" class="edge-label">pages re-assembled in order</text>
+
+  <!-- Phase 2 text chunking -->
+  <rect x="40" y="590" width="1280" height="170" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-dasharray="5 4"/>
+  <text x="60" y="615" class="lane-label" fill="#15803d">PHASE 2 — HEADING-AWARE TEXT CHUNKING (full document)</text>
+
+  <rect x="65" y="630" width="280" height="110" rx="8" fill="#ffffff" stroke="#16a34a"/>
+  <text x="205" y="655" text-anchor="middle" class="box-title">_preprocess_text</text>
+  <text x="205" y="676" text-anchor="middle" class="box-sub">ligatures · de-hyphenation · zero-width chars</text>
+  <text x="205" y="692" text-anchor="middle" class="box-sub">citation markers [1] · stray page numbers</text>
+  <text x="205" y="708" text-anchor="middle" class="box-sub">empty bullets · blank-line collapse</text>
+
+  <path class="edge" d="M345,685 L385,685"/>
+
+  <rect x="390" y="630" width="290" height="110" rx="8" fill="#ffffff" stroke="#16a34a"/>
+  <text x="535" y="655" text-anchor="middle" class="box-title">_split_by_headings</text>
+  <text x="535" y="676" text-anchor="middle" class="box-sub">split on # / ## / ### — each section is a</text>
+  <text x="535" y="692" text-anchor="middle" class="box-sub">semantic unit; h1/h2/h3 hierarchy tracked</text>
+  <text x="535" y="708" text-anchor="middle" class="box-sub">section first-page resolved in one pass</text>
+
+  <path class="edge" d="M680,685 L720,685"/>
+
+  <rect x="725" y="630" width="290" height="110" rx="8" fill="#ffffff" stroke="#16a34a"/>
+  <text x="870" y="655" text-anchor="middle" class="box-title">Parent → child splitting</text>
+  <text x="870" y="676" text-anchor="middle" class="box-sub">tiktoken cl100k_base splitters</text>
+  <text x="870" y="692" text-anchor="middle" class="box-sub">parent 512 tok (LLM context) · child 256 tok</text>
+  <text x="870" y="708" text-anchor="middle" class="box-sub">(embedded + searched) · never cross sections</text>
+
+  <path class="edge" d="M1015,685 L1055,685"/>
+
+  <rect x="1060" y="630" width="235" height="110" rx="8" fill="#ffffff" stroke="#16a34a"/>
+  <text x="1177" y="655" text-anchor="middle" class="box-title">Text chunks</text>
+  <text x="1177" y="676" text-anchor="middle" class="box-sub">type="text"</text>
+  <text x="1177" y="692" text-anchor="middle" class="box-sub">child text + parent_content,</text>
+  <text x="1177" y="708" text-anchor="middle" class="box-sub">source/page/h1-h3 metadata</text>
+
+  <path class="edge" d="M680,760 L680,795"/>
+  <text x="690" y="785" class="edge-label">all chunks (text + table + image/chart)</text>
+
+  <!-- Embed + upsert -->
+  <rect x="220" y="797" width="580" height="115" rx="10" fill="#ffffff" stroke="#0ea5e9" stroke-width="1.8"/>
+  <text x="510" y="822" text-anchor="middle" class="box-title">vector_store.add_documents — embed + upsert to Qdrant</text>
+  <text x="510" y="845" text-anchor="middle" class="box-sub">dense: OpenAI text-embedding-3-small on contextual text</text>
+  <text x="510" y="861" text-anchor="middle" class="box-sub">(Title + H1/H2/H3 prefix for text chunks — thin chunks retrieve correctly)</text>
+  <text x="510" y="877" text-anchor="middle" class="box-sub">sparse: FastEmbed Qdrant/bm25 on clean page_content only</text>
+  <text x="510" y="893" text-anchor="middle" class="box-sub">deterministic MD5 point ids · upsert in batches of 100</text>
+
+  <!-- Summary branch -->
+  <rect x="850" y="797" width="470" height="115" rx="10" fill="#ffffff" stroke="#9333ea" stroke-width="1.8"/>
+  <text x="1085" y="822" text-anchor="middle" class="box-title">_generate_document_summary (map-reduce, Groq)</text>
+  <text x="1085" y="845" text-anchor="middle" class="box-sub">unique parent chunks in page order → 16k-char batches</text>
+  <text x="1085" y="861" text-anchor="middle" class="box-sub">map: SUMMARY_CHUNK_PROMPT per batch (4 parallel workers)</text>
+  <text x="1085" y="877" text-anchor="middle" class="box-sub">reduce: SUMMARY_FINAL_PROMPT → structured bullet summary</text>
+  <text x="1085" y="893" text-anchor="middle" class="box-sub">stored as a type="document_summary" chunk (summary fast-path)</text>
+
+  <path class="edge" d="M800,855 L845,855"/>
+
+  <path class="edge" d="M510,912 L510,950"/>
+  <path class="edge" d="M1085,912 L1085,950 L560,950" stroke-dasharray="4 3"/>
+
+  <!-- Output -->
+  <rect x="330" y="952" width="360" height="70" rx="10" fill="#eef2ff" stroke="#6366f1" stroke-width="1.8"/>
+  <text x="510" y="977" text-anchor="middle" class="box-title">Qdrant collection  session_{session_id}</text>
+  <text x="510" y="995" text-anchor="middle" class="box-sub">result: {chunks_created, text/table/image breakdown}</text>
+  <text x="510" y="1011" text-anchor="middle" class="box-sub">audit trail written to data/runs/{session_id}/</text>
+
+  <rect x="760" y="962" width="420" height="55" rx="8" fill="#f1f5f9" stroke="#64748b"/>
+  <text x="970" y="984" text-anchor="middle" class="box-sub" font-weight="600">IngestionAudit (audit.py) — saved at every stage:</text>
+  <text x="970" y="1002" text-anchor="middle" class="box-sub">00_source · 01_extraction · 02_images · 03_tables · 04_chunks · 05_vector_store</text>
+</svg>

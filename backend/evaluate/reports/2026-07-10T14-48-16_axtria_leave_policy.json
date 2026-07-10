@@ -1,0 +1,890 @@
+[
+  {
+    "input": "What is the maximum number of Privilege Leaves that can be accumulated at any point of time?",
+    "actual_output": "- The maximum Privilege Leave (PL) that can be accumulated at any time is **24 days**.\n- PL earned after reaching 24 days of accumulation will lapse if not availed.",
+    "expected_output": "PL may be accumulated up to a maximum of 24 days.",
+    "success": true,
+    "timing": {
+      "total_s": 10.11,
+      "retrieval_s": 1.655,
+      "generation_s": 8.456,
+      "total_tokens": 1311
+    },
+    "metrics": [
+      {
+        "name": "Contextual Precision",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because all relevant nodes (nodes 1 and 2) are correctly ranked higher than the irrelevant node 3, which does not specify the maximum accumulation limit. This perfect ranking ensures the highest possible precision, accurately reflecting the relevance of the information."
+      },
+      {
+        "name": "Contextual Recall",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because the expected output directly aligns with the information in the retrieval context, specifically nodes 1 and 2, making the attribution clear and accurate."
+      },
+      {
+        "name": "Contextual Relevancy",
+        "score": 0.75,
+        "passed": true,
+        "reason": "The score is 0.75 because the relevant statements clearly mention that the maximum Privilege Leave accumulation is 24 days, directly answering the question, while the irrelevancy statement incorrectly states the maximum as 18 days."
+      },
+      {
+        "name": "Faithfulness",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The faithfulness score is 1.00 because there are no contradictions between the actual output and the retrieval context."
+      },
+      {
+        "name": "Answer Relevancy",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because the response directly addresses the question without including any irrelevant statements, demonstrating complete relevance."
+      },
+      {
+        "name": "Correctness (GEval)",
+        "score": 0.8456409753845143,
+        "passed": true,
+        "reason": "The Actual Output correctly states the maximum accumulation as 24 days, aligning with the Expected Output. It adds that excess leaves lapse, which is additional information not contradicted by the Input. The content is factually accurate and semantically equivalent, but the extra detail slightly exceeds the concise scope of the expected answer."
+      },
+      {
+        "name": "Latency (s)",
+        "score": 11.912,
+        "passed": true,
+        "reason": "11.91s (threshold 60.0s)"
+      },
+      {
+        "name": "Retrieval Time (s)",
+        "score": 1.631,
+        "passed": true,
+        "reason": "1.63s (threshold 5.0s)"
+      },
+      {
+        "name": "Generation Time (s)",
+        "score": 10.282,
+        "passed": false,
+        "reason": "10.28s (threshold 10.0s)"
+      },
+      {
+        "name": "Token Usage",
+        "score": 2289.0,
+        "passed": true,
+        "reason": "2289 tokens (threshold 5000)"
+      }
+    ]
+  },
+  {
+    "input": "How many Privilege Leaves are Axtria associates entitled to per year?",
+    "actual_output": "- **18 days** of Privilege Leave (PL) per year.\n- **1.5 days** credited monthly (accrued over the year).\n- **Up to 24 days** if any PL is carried forward.",
+    "expected_output": "18 days of Privilege Leave per year, credited at 1.5 days per month. PL can be carried forward up to a maximum of 24 days.",
+    "success": true,
+    "timing": {
+      "total_s": 5.946,
+      "retrieval_s": 1.622,
+      "generation_s": 4.324,
+      "total_tokens": 1120
+    },
+    "metrics": [
+      {
+        "name": "Contextual Precision",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because the relevant nodes are perfectly ranked at the top, with the most detailed and direct information in the first two nodes. The third node, which is irrelevant, is correctly placed lower, so it does not affect the high precision score."
+      },
+      {
+        "name": "Contextual Recall",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because the expected output perfectly aligns with the information in the retrieval context nodes, with each sentence directly supported by the corresponding node details, indicating a complete and accurate match."
+      },
+      {
+        "name": "Contextual Relevancy",
+        "score": 0.8666666666666667,
+        "passed": true,
+        "reason": "The score is 0.87 because the relevant statements clearly specify that 'All Associates at Axtria are entitled to 18 days of Privilege Leaves (PL) in a year,' directly answering the question, while the irrelevancy reasons pertain to different types of leave or conditions, not the entitlement itself."
+      },
+      {
+        "name": "Faithfulness",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The faithfulness score is 1.00 because there are no contradictions between the actual output and the retrieval context."
+      },
+      {
+        "name": "Answer Relevancy",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because the response directly addresses the question without any irrelevant statements, demonstrating complete relevance."
+      },
+      {
+        "name": "Correctness (GEval)",
+        "score": 0.8375719133359967,
+        "passed": true,
+        "reason": "The Actual Output correctly states 18 days of Privilege Leave per year and the monthly accrual of 1.5 days, matching the core facts in the Expected Output. However, it adds details about carry forward limits ('up to 24 days') that are not explicitly mentioned in the expected response, which slightly deviates from the concise core information. Overall, it is factually accurate and relevant but includes minor additional details."
+      },
+      {
+        "name": "Latency (s)",
+        "score": 11.912,
+        "passed": true,
+        "reason": "11.91s (threshold 60.0s)"
+      },
+      {
+        "name": "Retrieval Time (s)",
+        "score": 1.631,
+        "passed": true,
+        "reason": "1.63s (threshold 5.0s)"
+      },
+      {
+        "name": "Generation Time (s)",
+        "score": 10.282,
+        "passed": false,
+        "reason": "10.28s (threshold 10.0s)"
+      },
+      {
+        "name": "Token Usage",
+        "score": 2289.0,
+        "passed": true,
+        "reason": "2289 tokens (threshold 5000)"
+      }
+    ]
+  },
+  {
+    "input": "How many weeks of maternity leave is a woman associate entitled to at Axtria?",
+    "actual_output": "",
+    "expected_output": "For up to two children, the maximum is 26 weeks, of which not more than 8 weeks may precede the expected delivery date. For two or more surviving children, the maximum is 12 weeks.",
+    "success": false,
+    "timing": {
+      "total_s": 16.686,
+      "retrieval_s": 1.199,
+      "generation_s": 15.486,
+      "total_tokens": 2655
+    },
+    "metrics": [
+      {
+        "name": "Contextual Precision",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because all relevant nodes (nodes 1 and 2) are correctly ranked higher than the irrelevant node 3, which does not specify maternity leave duration for women associates. The relevant nodes provide precise information about maternity leave, leading to a perfect score."
+      },
+      {
+        "name": "Contextual Recall",
+        "score": 0.6666666666666666,
+        "passed": false,
+        "reason": "The score is 0.67 because the first two sentences in the expected output are well supported by nodes 1 and 2 in the retrieval context, but the third sentence, which discusses policies for multiple children, is only supported by node 2, leading to some ambiguity and a moderate recall score."
+      },
+      {
+        "name": "Contextual Relevancy",
+        "score": 0.4090909090909091,
+        "passed": false,
+        "reason": "The score is 0.41 because the irrelevant statements focus on leave procedures and other types of leave, not the specific duration of maternity leave for a woman associate. The relevant statements clearly specify entitlement to up to 26 weeks, which directly addresses the input question."
+      },
+      {
+        "name": "Faithfulness",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The faithfulness score is 1.00 because there are no contradictions between the actual output and the retrieval context."
+      },
+      {
+        "name": "Answer Relevancy",
+        "score": 0.0,
+        "passed": false,
+        "reason": "The score is 0.00 because the response was empty, containing no relevant or irrelevant statements, which justifies the lowest relevancy score."
+      },
+      {
+        "name": "Correctness (GEval)",
+        "score": 0.22546623525216264,
+        "passed": false,
+        "reason": "The Actual Output is empty, providing no information about maternity leave entitlements, which is factually incorrect and irrelevant to the input. It does not relate to the expected details about leave duration, leading to a low score."
+      },
+      {
+        "name": "Latency (s)",
+        "score": 11.912,
+        "passed": true,
+        "reason": "11.91s (threshold 60.0s)"
+      },
+      {
+        "name": "Retrieval Time (s)",
+        "score": 1.631,
+        "passed": true,
+        "reason": "1.63s (threshold 5.0s)"
+      },
+      {
+        "name": "Generation Time (s)",
+        "score": 10.282,
+        "passed": false,
+        "reason": "10.28s (threshold 10.0s)"
+      },
+      {
+        "name": "Token Usage",
+        "score": 2289.0,
+        "passed": true,
+        "reason": "2289 tokens (threshold 5000)"
+      }
+    ]
+  },
+  {
+    "input": "What is Advance Privilege Leave and what are the conditions to avail it?",
+    "actual_output": "- What it is: Advance Privilege Leaves (Advance PLs) are leaves advanced to an associate up to **5 days** in emergencies when there isn’t enough leave balance.\n\n- Conditions to avail:\n  - For emergencies or personal reasons such as **critical medical condition, self-marriage, loss of life or hospitalization of immediate family members.**\n  - **Maximum 5 days**; any days beyond are Leave without Pay.\n  - Advance PLs will be adjusted from following consecutive months’ accrual.\n  - If the Associate separates before adjustment, it is treated as **Leave without Pay** and Axtria may adjust the full and final settlement.\n  - Planning and approval: plan leaves in advance and inform the manager of the expected return date.\n  - Application: apply for planned leaves in **Empower** after manager approval; for unplanned/extended leaves, apply within **one month** of availing.\n  - If more than one month passes, inform HR and the reporting manager via email.",
+    "expected_output": "Advance Privilege Leave allows associates to take up to 5 days of PL in advance during emergencies such as critical medical condition, self-marriage, loss of life, or hospitalization of an immediate family member. Beyond 5 days it becomes Leave Without Pay. The advance is adjusted from future monthly accruals.",
+    "success": false,
+    "timing": {
+      "total_s": 7.827,
+      "retrieval_s": 1.91,
+      "generation_s": 5.917,
+      "total_tokens": 1497
+    },
+    "metrics": [
+      {
+        "name": "Contextual Precision",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because all relevant nodes (nodes 1 and 2) are correctly ranked higher than irrelevant nodes (node 3), which do not provide specific details about the conditions for availing Advance Privilege Leave. The relevant nodes directly match the input query, leading to a perfect score."
+      },
+      {
+        "name": "Contextual Recall",
+        "score": 0.42857142857142855,
+        "passed": false,
+        "reason": "The score is 0.43 because the first three nodes in retrieval context directly support the details about advance privilege leave, aligning with the expected output, while the remaining nodes do not relate to the specific conditions or limits, leading to a moderate recall score."
+      },
+      {
+        "name": "Contextual Relevancy",
+        "score": 0.3684210526315789,
+        "passed": false,
+        "reason": "The score is 0.37 because the context mentions 'Associates can avail advance PLs up to 5 days' and related details, which are relevant to the input question about Advance Privilege Leave. However, many statements discuss other leave types or procedures without defining or explaining Advance Privilege Leave, leading to partial relevance."
+      },
+      {
+        "name": "Faithfulness",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The faithfulness score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete alignment."
+      },
+      {
+        "name": "Answer Relevancy",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because the response directly and accurately explains Advance Privilege Leave and its conditions without any irrelevant statements."
+      },
+      {
+        "name": "Correctness (GEval)",
+        "score": 0.853224434147206,
+        "passed": true,
+        "reason": "The Actual Output accurately states that Advance Privilege Leave is up to 5 days for emergencies like medical issues, self-marriage, or family loss, aligning with the Expected Output. It mentions the 5-day limit and that excess becomes Leave Without Pay, and notes adjustment from future accruals. However, it omits details about planning, application process, and the specific mention of informing HR if more than a month passes, which are included in the Input. Overall, it is factually correct and semantically equivalent but slightly less comprehensive."
+      },
+      {
+        "name": "Latency (s)",
+        "score": 11.912,
+        "passed": true,
+        "reason": "11.91s (threshold 60.0s)"
+      },
+      {
+        "name": "Retrieval Time (s)",
+        "score": 1.631,
+        "passed": true,
+        "reason": "1.63s (threshold 5.0s)"
+      },
+      {
+        "name": "Generation Time (s)",
+        "score": 10.282,
+        "passed": false,
+        "reason": "10.28s (threshold 10.0s)"
+      },
+      {
+        "name": "Token Usage",
+        "score": 2289.0,
+        "passed": true,
+        "reason": "2289 tokens (threshold 5000)"
+      }
+    ]
+  },
+  {
+    "input": "Can Casual Leave or Sick Leave be carried forward to the next year?",
+    "actual_output": "- No. **Sick Leave** cannot be carried forward; any balance or unutilized Sick Leave will lapse at the end of the leave year.\n- No. **Casual Leave** cannot be carried forward; any balance or unutilized Casual Leave will lapse at the end of the leave calendar year.",
+    "expected_output": "No. Neither Casual Leave nor Sick Leave can be carried forward. Any unutilized balance lapses at the end of the leave calendar year.",
+    "success": false,
+    "timing": {
+      "total_s": 67.568,
+      "retrieval_s": 61.182,
+      "generation_s": 6.386,
+      "total_tokens": 1571
+    },
+    "metrics": [
+      {
+        "name": "Contextual Precision",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because all relevant nodes (nodes 1 and 2) are correctly ranked higher than the irrelevant node 3, which does not specify carry-forward rules for Casual or Sick Leave. This perfect ranking indicates a precise retrieval of pertinent information, leading to an optimal score."
+      },
+      {
+        "name": "Contextual Recall",
+        "score": 0.0,
+        "passed": false,
+        "reason": "The score is 0.00 because the expected output lacks specific references to nodes in the retrieval context, making it impossible to attribute the information accurately."
+      },
+      {
+        "name": "Contextual Relevancy",
+        "score": 0.85,
+        "passed": true,
+        "reason": "The score is 0.85 because the context explicitly states 'SLs cannot be carried forward to the next year' and 'CLs cannot be carried forward to the next year,' directly addressing the query about carry forward provisions, making the context highly relevant."
+      },
+      {
+        "name": "Faithfulness",
+        "score": 0.75,
+        "passed": true,
+        "reason": "The score is 0.75 because the actual output incorrectly claims that Casual Leave cannot be carried forward, contradicting the retrieval context which states that unutilized Casual Leave can be carried forward but will lapse at the end of the leave calendar year."
+      },
+      {
+        "name": "Answer Relevancy",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because the response directly addressed the question without including any irrelevant statements, demonstrating complete relevance."
+      },
+      {
+        "name": "Correctness (GEval)",
+        "score": 0.7895700732919363,
+        "passed": true,
+        "reason": "The Actual Output correctly states that neither Casual Leave nor Sick Leave can be carried forward and mentions lapsing at the end of the leave year, aligning with the Expected Output. However, it separates the reasons for each leave type, whereas the Expected Output combines them into a single statement, slightly affecting semantic equivalence. No hallucinations or inaccuracies are present, and the input provides sufficient context."
+      },
+      {
+        "name": "Latency (s)",
+        "score": 11.912,
+        "passed": true,
+        "reason": "11.91s (threshold 60.0s)"
+      },
+      {
+        "name": "Retrieval Time (s)",
+        "score": 1.631,
+        "passed": true,
+        "reason": "1.63s (threshold 5.0s)"
+      },
+      {
+        "name": "Generation Time (s)",
+        "score": 10.282,
+        "passed": false,
+        "reason": "10.28s (threshold 10.0s)"
+      },
+      {
+        "name": "Token Usage",
+        "score": 2289.0,
+        "passed": true,
+        "reason": "2289 tokens (threshold 5000)"
+      }
+    ]
+  },
+  {
+    "input": "What are the conditions and limitations for availing Paternity Leave at Axtria?",
+    "actual_output": "- Duration: **5 days** with pay.\n- Eligibility: after completing **12 weeks** of continuous service at Axtria.\n- Coverage: available for up to **two children**.\n- Timing: must be availed within the first **3 months** of childbirth.\n- Mode: leave should be taken **in one go** (no breaking up of leave tenure).\n- Carryover: cannot be **accumulated**, **carried forward**, or **encashed** at separation.",
+    "expected_output": "Paternity Leave is 5 days with full pay. It requires 12 weeks of continuous service, is available for up to two children, must be taken within 3 months of childbirth, must be taken in one continuous block, and cannot be accumulated, carried forward, or encashed at separation.",
+    "success": false,
+    "timing": {
+      "total_s": 73.025,
+      "retrieval_s": 61.263,
+      "generation_s": 11.762,
+      "total_tokens": 2303
+    },
+    "metrics": [
+      {
+        "name": "Contextual Precision",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because all relevant nodes (1st, 2nd, and 3rd) are correctly ranked higher than irrelevant ones, providing comprehensive and accurate information about Paternity Leave conditions at Axtria, which aligns perfectly with the input query."
+      },
+      {
+        "name": "Contextual Recall",
+        "score": 0.8,
+        "passed": true,
+        "reason": "The score is 0.80 because the retrieval context provides detailed information aligning with most parts of the expected output, such as the duration, service requirement, timing, and conditions of paternity leave, supporting the overall match. However, it lacks explicit mention of the leave not being encashable or transferable, which slightly reduces the recall score. Overall, the context sufficiently supports the key details, leading to a relatively high score."
+      },
+      {
+        "name": "Contextual Relevancy",
+        "score": 0.36363636363636365,
+        "passed": false,
+        "reason": "The score is 0.36 because the retrieval context contains relevant details about Paternity Leave, such as 'Paternity Leave can be availed for a period of 5 days with pay' and 'must be availed within the first 3 months of childbirth,' which directly address the input question."
+      },
+      {
+        "name": "Faithfulness",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The faithfulness score is 1.00 because there are no contradictions between the actual output and the retrieval context."
+      },
+      {
+        "name": "Answer Relevancy",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because there are no irrelevant statements in the output; it directly addresses the question about Paternity Leave conditions at Axtria."
+      },
+      {
+        "name": "Correctness (GEval)",
+        "score": 0.8922801826803916,
+        "passed": true,
+        "reason": "The Actual Output accurately reflects the key details from the Expected Output, including duration, eligibility, coverage, timing, mode, and carryover restrictions. It uses slightly different phrasing but maintains factual correctness and semantic equivalence. The only minor issue is the phrase 'in one go' instead of 'in one continuous block,' but this does not significantly alter the meaning."
+      },
+      {
+        "name": "Latency (s)",
+        "score": 11.912,
+        "passed": true,
+        "reason": "11.91s (threshold 60.0s)"
+      },
+      {
+        "name": "Retrieval Time (s)",
+        "score": 1.631,
+        "passed": true,
+        "reason": "1.63s (threshold 5.0s)"
+      },
+      {
+        "name": "Generation Time (s)",
+        "score": 10.282,
+        "passed": false,
+        "reason": "10.28s (threshold 10.0s)"
+      },
+      {
+        "name": "Token Usage",
+        "score": 2289.0,
+        "passed": true,
+        "reason": "2289 tokens (threshold 5000)"
+      }
+    ]
+  },
+  {
+    "input": "Within how many months must compensatory off be taken after it is granted?",
+    "actual_output": "Within **3 months** of it being granted (or before the project end date, whichever is earlier).",
+    "expected_output": "Within 3 months of it being granted, or before the project end date, whichever is earlier.",
+    "success": false,
+    "timing": {
+      "total_s": 70.352,
+      "retrieval_s": 61.25,
+      "generation_s": 9.102,
+      "total_tokens": 1995
+    },
+    "metrics": [
+      {
+        "name": "Contextual Precision",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because all relevant nodes are correctly ranked higher than irrelevant ones, with no irrelevant nodes present, indicating perfect relevance and ranking."
+      },
+      {
+        "name": "Contextual Recall",
+        "score": 0.75,
+        "passed": true,
+        "reason": "The score is 0.75 because the sentence accurately reflects the specific time frame for taking compensatory off as detailed in node 1, and the mention of 'Compensatory Off' aligns with node 3's information, supporting the relevance of the retrieval context."
+      },
+      {
+        "name": "Contextual Relevancy",
+        "score": 0.6,
+        "passed": false,
+        "reason": "The score is 0.60 because the context states 'Compensatory off must be taken within 3 months of it being granted or before the project end date,' which directly addresses the question about the time frame after it is granted, making it relevant."
+      },
+      {
+        "name": "Faithfulness",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The faithfulness score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete alignment."
+      },
+      {
+        "name": "Answer Relevancy",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because the response directly addresses the question about the timeframe for taking compensatory off, with no irrelevant statements present."
+      },
+      {
+        "name": "Correctness (GEval)",
+        "score": 0.9541377515970408,
+        "passed": true,
+        "reason": "The Actual Output accurately matches the Expected Output, both stating 'Within 3 months of it being granted, or before the project end date, whichever is earlier.' The input supports this by asking about the timeframe for taking compensatory off after it is granted, and the output correctly clarifies the conditions and timing, aligning perfectly with the expected response without contradictions."
+      },
+      {
+        "name": "Latency (s)",
+        "score": 11.912,
+        "passed": true,
+        "reason": "11.91s (threshold 60.0s)"
+      },
+      {
+        "name": "Retrieval Time (s)",
+        "score": 1.631,
+        "passed": true,
+        "reason": "1.63s (threshold 5.0s)"
+      },
+      {
+        "name": "Generation Time (s)",
+        "score": 10.282,
+        "passed": false,
+        "reason": "10.28s (threshold 10.0s)"
+      },
+      {
+        "name": "Token Usage",
+        "score": 2289.0,
+        "passed": true,
+        "reason": "2289 tokens (threshold 5000)"
+      }
+    ]
+  },
+  {
+    "input": "What is the minimum service requirement and duration for a Sabbatical leave at Axtria?",
+    "actual_output": "- Minimum service requirement: **two (2) years** of continuous service.\n- Sabbatical duration: **minimum of one year** and **maximum of two years**.",
+    "expected_output": "Associates need 2 years of continuous service to be eligible. The sabbatical must be for a minimum of 1 year and a maximum of 2 years.",
+    "success": false,
+    "timing": {
+      "total_s": 63.51,
+      "retrieval_s": 57.114,
+      "generation_s": 6.396,
+      "total_tokens": 1304
+    },
+    "metrics": [
+      {
+        "name": "Contextual Precision",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because the relevant nodes (nodes 1 and 2) are correctly ranked higher than irrelevant nodes (nodes 3 and 4). The first node explicitly states the minimum service requirement, and the second node details the sabbatical duration, directly addressing the query. The irrelevant nodes do not provide information on these aspects, which is why the current ranking accurately reflects their relevance."
+      },
+      {
+        "name": "Contextual Recall",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because each sentence in the expected output directly corresponds to specific nodes in the retrieval context, clearly supporting the match and leading to a perfect recall score."
+      },
+      {
+        "name": "Contextual Relevancy",
+        "score": 0.3076923076923077,
+        "passed": false,
+        "reason": "The score is 0.31 because the retrieval context contains relevant statements such as 'Sabbatical leave is available after 2 years of continuous service for a minimum of 1 year and a maximum of 2 years,' directly addressing the minimum service requirement and duration, which are pertinent to the input question."
+      },
+      {
+        "name": "Faithfulness",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The faithfulness score is 1.00 because there are no contradictions between the actual output and the retrieval context."
+      },
+      {
+        "name": "Answer Relevancy",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because the response directly addressed the question without including any irrelevant information, demonstrating complete relevance."
+      },
+      {
+        "name": "Correctness (GEval)",
+        "score": 0.8358959425487068,
+        "passed": true,
+        "reason": "The actual output accurately states the service requirement and sabbatical duration, matching the expected details. It correctly specifies 2 years of service and a 1-2 year sabbatical. However, it introduces formatting (bold and numbering) not present in the expected output, and slightly alters phrasing, which affects semantic equivalence. No hallucinations or contradictions are present, and the context is properly used."
+      },
+      {
+        "name": "Latency (s)",
+        "score": 11.912,
+        "passed": true,
+        "reason": "11.91s (threshold 60.0s)"
+      },
+      {
+        "name": "Retrieval Time (s)",
+        "score": 1.631,
+        "passed": true,
+        "reason": "1.63s (threshold 5.0s)"
+      },
+      {
+        "name": "Generation Time (s)",
+        "score": 10.282,
+        "passed": false,
+        "reason": "10.28s (threshold 10.0s)"
+      },
+      {
+        "name": "Token Usage",
+        "score": 2289.0,
+        "passed": true,
+        "reason": "2289 tokens (threshold 5000)"
+      }
+    ]
+  },
+  {
+    "input": "If an associate takes Leave Without Pay from Thursday to Monday, how many LWP days will be counted?",
+    "actual_output": "**3** LWP days will be counted (Thursday, Friday, and Monday) since the leave is less than **7** calendar days and weekends do not count as LWP.",
+    "expected_output": "3 days — Thursday, Friday, and Monday. When LWP is less than 7 calendar days, weekends and Axtria holidays in between are not counted as LWP days.",
+    "success": false,
+    "timing": {
+      "total_s": 65.484,
+      "retrieval_s": 61.239,
+      "generation_s": 4.245,
+      "total_tokens": 908
+    },
+    "metrics": [
+      {
+        "name": "Contextual Precision",
+        "score": 0.8333333333333333,
+        "passed": true,
+        "reason": "The score of 0.83 is high because the first and third nodes provide relevant information about LWP days, with the first node directly explaining the counting method. The second node is irrelevant, as it discusses Paid Leave and does not address LWP days, which is why the score isn't higher. The current score reflects that most relevant nodes are ranked higher, but the presence of an irrelevant node slightly lowers the overall precision."
+      },
+      {
+        "name": "Contextual Recall",
+        "score": 0.5,
+        "passed": false,
+        "reason": "The score is 0.50 because the expected output's mention of specific days and LWP counting rules aligns with node 1 in the retrieval context, which discusses 'LWP days' and their calculation, making the sentence partially supported."
+      },
+      {
+        "name": "Contextual Relevancy",
+        "score": 0.4666666666666667,
+        "passed": false,
+        "reason": "The score is 0.47 because the context discusses general policies and conditions related to LWP, such as inclusion of holidays for 7+ day leaves and approval processes, but does not specify the exact number of LWP days for a leave from Thursday to Monday, which is the specific question in the input."
+      },
+      {
+        "name": "Faithfulness",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The faithfulness score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete alignment."
+      },
+      {
+        "name": "Answer Relevancy",
+        "score": 0.75,
+        "passed": true,
+        "reason": "The score is 0.75 because the response included a statement about leave duration being less than 7 days, which is somewhat relevant but does not directly answer the specific question about the number of LWP days counted. This slight irrelevance prevents a higher score, but the overall response remains mostly on topic."
+      },
+      {
+        "name": "Correctness (GEval)",
+        "score": 0.8466345307617521,
+        "passed": true,
+        "reason": "The Actual Output correctly states 3 LWP days (Thursday, Friday, Monday) and explains the reasoning about weekends and duration, aligning with the Expected Output. However, it omits mentioning holidays, which are included in the expected explanation, slightly reducing completeness."
+      },
+      {
+        "name": "Latency (s)",
+        "score": 11.912,
+        "passed": true,
+        "reason": "11.91s (threshold 60.0s)"
+      },
+      {
+        "name": "Retrieval Time (s)",
+        "score": 1.631,
+        "passed": true,
+        "reason": "1.63s (threshold 5.0s)"
+      },
+      {
+        "name": "Generation Time (s)",
+        "score": 10.282,
+        "passed": false,
+        "reason": "10.28s (threshold 10.0s)"
+      },
+      {
+        "name": "Token Usage",
+        "score": 2289.0,
+        "passed": true,
+        "reason": "2289 tokens (threshold 5000)"
+      }
+    ]
+  },
+  {
+    "input": "List all leave types and the number of days or weeks each provides at Axtria.",
+    "actual_output": "- Privilege Leaves (PL): **18 days** per year; **1.5 days per month** (credited monthly).\n- Casual Leaves (CL): not specified in the context.\n- Sick Leaves (SL): not specified in the context.",
+    "expected_output": "Privilege Leave: 18 days/year (up to 24 if carried forward). Casual Leave: 7 days/year. Sick Leave: 7 days/year. Maternity Leave: 26 weeks. Miscarriage Leave: 6 weeks. Paternity Leave: 5 days. Leave Without Pay: maximum 12 weeks. Sabbatical Leave: 1–2 years. Compensatory Off: maximum 15 days/year.",
+    "success": false,
+    "timing": {
+      "total_s": 9.632,
+      "retrieval_s": 1.715,
+      "generation_s": 7.917,
+      "total_tokens": 1561
+    },
+    "metrics": [
+      {
+        "name": "Contextual Precision",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because all relevant nodes (1st, 2nd, and 3rd) are highly aligned with the input, each confirming the same leave types and durations, which indicates perfect ranking of relevant information."
+      },
+      {
+        "name": "Contextual Recall",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because all sentences in the expected output are directly supported by the corresponding nodes in the retrieval context, indicating perfect alignment and understanding."
+      },
+      {
+        "name": "Contextual Relevancy",
+        "score": 0.47368421052631576,
+        "passed": false,
+        "reason": "The score is 0.47 because the retrieval context contains relevant details about leave types and their durations, such as 'Full‑time associates receive 18 Privilege Leaves per year' and 'Casual and Sick Leaves are 7 days each per year,' which directly address the input request."
+      },
+      {
+        "name": "Faithfulness",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The faithfulness score is 1.00 because there are no contradictions between the actual output and the retrieval context."
+      },
+      {
+        "name": "Answer Relevancy",
+        "score": 0.5,
+        "passed": false,
+        "reason": "The score is 0.50 because the response includes irrelevant statements about unspecified leave details, which do not directly address the request to list leave types and durations at Axtria. However, the overall tone remains positive and focused on the task, preventing a lower score."
+      },
+      {
+        "name": "Correctness (GEval)",
+        "score": 0.29332306021227,
+        "passed": false,
+        "reason": "The Actual Output only mentions Privilege and leaves without specifying casual, sick, maternity, miscarriage, paternity, or sabbatical leaves as in the Expected Output. It omits most leave types and their durations, and the details about carry-forward and maximum limits are missing, leading to significant factual and completeness gaps."
+      },
+      {
+        "name": "Latency (s)",
+        "score": 11.912,
+        "passed": true,
+        "reason": "11.91s (threshold 60.0s)"
+      },
+      {
+        "name": "Retrieval Time (s)",
+        "score": 1.631,
+        "passed": true,
+        "reason": "1.63s (threshold 5.0s)"
+      },
+      {
+        "name": "Generation Time (s)",
+        "score": 10.282,
+        "passed": false,
+        "reason": "10.28s (threshold 10.0s)"
+      },
+      {
+        "name": "Token Usage",
+        "score": 2289.0,
+        "passed": true,
+        "reason": "2289 tokens (threshold 5000)"
+      }
+    ]
+  },
+  {
+    "input": "What happens if an associate is absent without approval for an extended period?",
+    "actual_output": "- Absence without approval is unauthorized and treated as breach of the Employment Contract, leading to disciplinary action up to termination.  \n- Axtria may deduct pay for the days the Associate was absent without approval.  \n- If the absence extends beyond the sanctioned leave or beyond the period originally granted or subsequently extended in writing, it will be treated as unauthorized and action as deemed fit will be initiated.  \n- If the Associate remains absent beyond that unauthorized period, they will be marked as absconding, which may result in strict disciplinary actions including termination without notice—unless the Associate returns to work within **seven days** of the commencement of such unauthorized absence.",
+    "expected_output": "If the associate does not return within seven days, they will be marked as absconding, which may lead to termination without notice. Axtria may also deduct pay for the days absent without approval.",
+    "success": false,
+    "timing": {
+      "total_s": 70.206,
+      "retrieval_s": 61.273,
+      "generation_s": 8.933,
+      "total_tokens": 1757
+    },
+    "metrics": [
+      {
+        "name": "Contextual Precision",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because all relevant nodes (nodes 1, 2, and 3) are ranked highest, accurately reflecting their relevance to the query about unauthorized absence. The absence of irrelevant nodes in the top positions indicates perfect ranking, but the score isn't higher than 1.00 because, in real scenarios, slight variations or additional context could slightly affect the ranking accuracy."
+      },
+      {
+        "name": "Contextual Recall",
+        "score": 0.5,
+        "passed": false,
+        "reason": "The score is 0.50 because the first sentence aligns with node 5 in the retrieval context, which discusses being marked as absconding, supporting the relevance of that part. However, the second sentence about pay deduction is not explicitly supported by any node, leading to a moderate overall score."
+      },
+      {
+        "name": "Contextual Relevancy",
+        "score": 0.6666666666666666,
+        "passed": false,
+        "reason": "The score is 0.67 because the retrieval context contains relevant statements such as 'absence of the Associate would be treated as unauthorised' and 'may result in disciplinary actions including termination,' which directly address the consequences of unauthorized absence, making the context somewhat relevant."
+      },
+      {
+        "name": "Faithfulness",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The faithfulness score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete alignment."
+      },
+      {
+        "name": "Answer Relevancy",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because the response directly addresses the question without any irrelevant statements, demonstrating complete relevance."
+      },
+      {
+        "name": "Correctness (GEval)",
+        "score": 0.7136790957296328,
+        "passed": true,
+        "reason": "The Actual Output correctly states that if the associate does not return within seven days, they are marked as absconding and may face termination, aligning with the Expected Output. It also mentions pay deduction for unauthorized absence. However, it provides additional details about disciplinary actions and extending leave, which are not specified in the expected response, slightly reducing clarity and relevance."
+      },
+      {
+        "name": "Latency (s)",
+        "score": 11.912,
+        "passed": true,
+        "reason": "11.91s (threshold 60.0s)"
+      },
+      {
+        "name": "Retrieval Time (s)",
+        "score": 1.631,
+        "passed": true,
+        "reason": "1.63s (threshold 5.0s)"
+      },
+      {
+        "name": "Generation Time (s)",
+        "score": 10.282,
+        "passed": false,
+        "reason": "10.28s (threshold 10.0s)"
+      },
+      {
+        "name": "Token Usage",
+        "score": 2289.0,
+        "passed": true,
+        "reason": "2289 tokens (threshold 5000)"
+      }
+    ]
+  },
+  {
+    "input": "When can an associate encash their Privilege Leave — only at separation or also during employment?",
+    "actual_output": "Encashment of Privilege Leave is allowed only at the **time of separation**, on a **pro-rated basis**. It is not available during employment.",
+    "expected_output": "Only at the time of separation, on a pro-rated basis. There is no provision to encash PL during active employment.",
+    "success": false,
+    "timing": {
+      "total_s": 11.912,
+      "retrieval_s": 1.631,
+      "generation_s": 10.282,
+      "total_tokens": 2289
+    },
+    "metrics": [
+      {
+        "name": "Contextual Precision",
+        "score": 0.8333333333333333,
+        "passed": true,
+        "reason": "The score of 0.83 is high because relevant nodes (1 and 3) provide clear information about encashment only at separation, while the irrelevant node (2) discusses sick leave, which does not pertain to the question. The score isn't perfect because the second node, despite being irrelevant, is ranked higher than some relevant nodes, slightly reducing the overall precision."
+      },
+      {
+        "name": "Contextual Recall",
+        "score": 0.5,
+        "passed": false,
+        "reason": "The score of 0.50 is due to the sentence in the expected output referencing 'separation' and 'pro-rated basis', which aligns with node 1 in the retrieval context that discusses 'at the time of separation on pro-rated basis'. This direct connection supports the relevance, while unrelated content like sick leave policies does not impact the score."
+      },
+      {
+        "name": "Contextual Relevancy",
+        "score": 0.2857142857142857,
+        "passed": false,
+        "reason": "The relevancy score is 0.29 because the retrieval context primarily discusses Sick Leave policies, which are irrelevant to the question about Privilege Leave encashment timing. The relevant statements clearly specify that 'Associates would be eligible to encash their accumulated PLs only at the time of separation,' directly addressing the query."
+      },
+      {
+        "name": "Faithfulness",
+        "score": 0.6666666666666666,
+        "passed": false,
+        "reason": "The faithfulness score is 0.67 because the actual output incorrectly suggests that paid leaves can be encashed during employment, contradicting the retrieval context which states encashment is only at separation and on a pro-rated basis."
+      },
+      {
+        "name": "Answer Relevancy",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because the response directly addressed the question without including any irrelevant statements, demonstrating complete relevance."
+      },
+      {
+        "name": "Correctness (GEval)",
+        "score": 0.8592579013080434,
+        "passed": true,
+        "reason": "The actual output accurately states that encashment is only allowed at separation and not during employment, aligning with the expected answer. It correctly mentions the pro-rated basis and the timing. However, it slightly omits the explicit phrase 'Only at the time of separation,' which is present in the expected output, making it nearly complete but not fully identical in phrasing."
+      },
+      {
+        "name": "Latency (s)",
+        "score": 11.912,
+        "passed": true,
+        "reason": "11.91s (threshold 60.0s)"
+      },
+      {
+        "name": "Retrieval Time (s)",
+        "score": 1.631,
+        "passed": true,
+        "reason": "1.63s (threshold 5.0s)"
+      },
+      {
+        "name": "Generation Time (s)",
+        "score": 10.282,
+        "passed": false,
+        "reason": "10.28s (threshold 10.0s)"
+      },
+      {
+        "name": "Token Usage",
+        "score": 2289.0,
+        "passed": true,
+        "reason": "2289 tokens (threshold 5000)"
+      }
+    ]
+  }
+]

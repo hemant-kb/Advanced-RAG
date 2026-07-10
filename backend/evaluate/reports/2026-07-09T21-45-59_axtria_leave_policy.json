@@ -1,0 +1,76 @@
+[
+  {
+    "input": "How many Privilege Leaves are Axtria associates entitled to per year?",
+    "actual_output": "Axtria associates are entitled to **18 days** of Privilege Leave (PL) per year, credited as **1.5 days monthly**, and up to **24 days** if any PL is carried forward.",
+    "expected_output": "All associates at Axtria are entitled to 18 days of Privilege Leave (PL) per year. PLs are credited at 1.5 days per month at the beginning of each month.",
+    "success": false,
+    "timing": {
+      "total_s": 10.864,
+      "retrieval_s": 1.469,
+      "generation_s": 9.395,
+      "total_tokens": 1391
+    },
+    "metrics": [
+      {
+        "name": "Contextual Precision",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because all relevant nodes are ranked higher than irrelevant ones, with each relevant node explicitly confirming that Axtria associates are entitled to 18 Privilege Leaves per year, as stated in nodes 1, 2, and 3."
+      },
+      {
+        "name": "Contextual Recall",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The score is 1.00 because the expected output closely matches the information in retrieval context node 1, with all sentences supported by the node's content, indicating a perfect recall."
+      },
+      {
+        "name": "Contextual Relevancy",
+        "score": 0.7777777777777778,
+        "passed": true,
+        "reason": "The score is 0.78 because the context explicitly states 'Associates are entitled to 18 Privilege Leave days per year,' which directly answers the question, making the context mostly relevant despite some unrelated details."
+      },
+      {
+        "name": "Faithfulness",
+        "score": 1.0,
+        "passed": true,
+        "reason": "The faithfulness score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete alignment."
+      },
+      {
+        "name": "Answer Relevancy",
+        "score": 0.6666666666666666,
+        "passed": false,
+        "reason": "The score is 0.67 because the response included information about maximum PL days carried forward, which is somewhat relevant but not directly answering the annual entitlement, leading to partial relevance."
+      },
+      {
+        "name": "Correctness (GEval)",
+        "score": 0.7805492954108166,
+        "passed": true,
+        "reason": "The Actual Output correctly states the 18 days entitlement and the 1.5 days monthly credit, aligning with the Expected Output. However, it adds the detail about carrying forward up to 24 days, which is not mentioned in the expected answer, introducing a minor inaccuracy. The input information is appropriately used, and no hallucinations are present."
+      },
+      {
+        "name": "Latency (s)",
+        "score": 10.864,
+        "passed": true,
+        "reason": "10.86s (threshold 60.0s)"
+      },
+      {
+        "name": "Retrieval Time (s)",
+        "score": 1.469,
+        "passed": true,
+        "reason": "1.47s (threshold 5.0s)"
+      },
+      {
+        "name": "Generation Time (s)",
+        "score": 9.395,
+        "passed": true,
+        "reason": "9.39s (threshold 10.0s)"
+      },
+      {
+        "name": "Token Usage",
+        "score": 1391.0,
+        "passed": true,
+        "reason": "1391 tokens (threshold 5000)"
+      }
+    ]
+  }
+]

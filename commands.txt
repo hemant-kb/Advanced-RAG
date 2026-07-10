@@ -1,0 +1,7 @@
+
+# --- SERVER -------------------------------------------------
+uvicorn backend.api:app --reload --host 0.0.0.0 --port 8000
+
+# --- INSTALL ------------------------------------------------
+pip install -r requirements.txt
+

@@ -1,0 +1,74 @@
+[
+  {
+    "id": "pl_entitlement",
+    "category": "factual_lookup",
+    "input": "How many Privilege Leaves are Axtria associates entitled to per year?",
+    "expected_output": "18 days of Privilege Leave per year, credited at 1.5 days per month. PL can be carried forward up to a maximum of 24 days."
+  },
+  {
+    "id": "pl_max_accumulation",
+    "category": "factual_lookup",
+    "input": "What is the maximum number of Privilege Leaves that can be accumulated at any point of time?",
+    "expected_output": "PL may be accumulated up to a maximum of 24 days."
+  },
+  {
+    "id": "maternity_leave_duration",
+    "category": "factual_lookup",
+    "input": "How many weeks of maternity leave is a woman associate entitled to at Axtria?",
+    "expected_output": "For up to two children, the maximum is 26 weeks, of which not more than 8 weeks may precede the expected delivery date. For two or more surviving children, the maximum is 12 weeks."
+  },
+  {
+    "id": "paternity_leave_conditions",
+    "category": "multi_fact",
+    "input": "What are the conditions and limitations for availing Paternity Leave at Axtria?",
+    "expected_output": "Paternity Leave is 5 days with full pay. It requires 12 weeks of continuous service, is available for up to two children, must be taken within 3 months of childbirth, must be taken in one continuous block, and cannot be accumulated, carried forward, or encashed at separation."
+  },
+  {
+    "id": "cl_vs_sl_carryforward",
+    "category": "comparison",
+    "input": "Can Casual Leave or Sick Leave be carried forward to the next year?",
+    "expected_output": "No. Neither Casual Leave nor Sick Leave can be carried forward. Any unutilized balance lapses at the end of the leave calendar year."
+  },
+  {
+    "id": "advance_pl",
+    "category": "edge_case",
+    "input": "What is Advance Privilege Leave and what are the conditions to avail it?",
+    "expected_output": "Advance Privilege Leave allows associates to take up to 5 days of PL in advance during emergencies such as critical medical condition, self-marriage, loss of life, or hospitalization of an immediate family member. Beyond 5 days it becomes Leave Without Pay. The advance is adjusted from future monthly accruals."
+  },
+  {
+    "id": "lwp_weekend_rule",
+    "category": "complex_rule",
+    "input": "If an associate takes Leave Without Pay from Thursday to Monday, how many LWP days will be counted?",
+    "expected_output": "3 days — Thursday, Friday, and Monday. When LWP is less than 7 calendar days, weekends and Axtria holidays in between are not counted as LWP days."
+  },
+  {
+    "id": "sabbatical_eligibility",
+    "category": "factual_lookup",
+    "input": "What is the minimum service requirement and duration for a Sabbatical leave at Axtria?",
+    "expected_output": "Associates need 2 years of continuous service to be eligible. The sabbatical must be for a minimum of 1 year and a maximum of 2 years."
+  },
+  {
+    "id": "comp_off_expiry",
+    "category": "factual_lookup",
+    "input": "Within how many months must compensatory off be taken after it is granted?",
+    "expected_output": "Within 3 months of it being granted, or before the project end date, whichever is earlier."
+  },
+  {
+    "id": "leave_chart_summary",
+    "category": "table_lookup",
+    "input": "List all leave types and the number of days or weeks each provides at Axtria.",
+    "expected_output": "Privilege Leave: 18 days/year (up to 24 if carried forward). Casual Leave: 7 days/year. Sick Leave: 7 days/year. Maternity Leave: 26 weeks. Miscarriage Leave: 6 weeks. Paternity Leave: 5 days. Leave Without Pay: maximum 12 weeks. Sabbatical Leave: 1–2 years. Compensatory Off: maximum 15 days/year."
+  },
+  {
+    "id": "negative_pl_encashment_during_employment",
+    "category": "negative",
+    "input": "When can an associate encash their Privilege Leave — only at separation or also during employment?",
+    "expected_output": "Only at the time of separation, on a pro-rated basis. There is no provision to encash PL during active employment."
+  },
+  {
+    "id": "unauthorized_absence_consequence",
+    "category": "policy_rule",
+    "input": "What happens if an associate is absent without approval for an extended period?",
+    "expected_output": "If the associate does not return within seven days, they will be marked as absconding, which may lead to termination without notice. Axtria may also deduct pay for the days absent without approval."
+  }
+]
