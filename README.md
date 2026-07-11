@@ -7,7 +7,7 @@
 
 ## 1. Full Architecture
 
-![Full architecture](images/architecture.svg)
+![Full architecture](docs/images/architecture.svg)
 
 **Single mode: Multimodal RAG.** The app answers questions over one uploaded PDF per session — text, tables, images and charts. Every query goes through the RAG subgraph; there is no general-chat bypass.
 
@@ -55,7 +55,7 @@ sequenceDiagram
 
 ## 2. Document Ingestion Pipeline
 
-![Document pipeline](images/document-pipeline.svg)
+![Document pipeline](docs/images/document-pipeline.svg)
 
 Entry point: `ingest_pdf(file_path, session_id, mode)` in `backend/rag/document_pipeline.py`, called from the upload endpoint via `asyncio.to_thread`. Re-ingesting the same source into a session is a no-op (checked against Qdrant payloads).
 
