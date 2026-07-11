@@ -95,7 +95,7 @@ Each page is processed by `_process_page` in a thread pool:
 
 ## 3. RAG Query Graph
 
-![RAG graph](images/rag-graph.svg)
+![RAG graph](docs/images/rag-graph.svg)
 
 `backend/graph.py` compiles a master graph with a single node — the RAG subgraph from `backend/rag/rag_graph.py` — so LangSmith sees one trace tree. State (`RAGState`) extends `MessagesState` with `session_id`, `query`, `retrieved_docs`, `rewrite_count`, `is_relevant`, `answer`; transient fields are reset by `api.py` at each turn.
 
@@ -133,7 +133,7 @@ Every node calls `_emit(session_id, step)`; `routes/chat.py` registers a per-req
 
 ## 4. Evaluation Pipeline
 
-![Evaluation pipeline](images/evaluation.svg)
+![Evaluation pipeline](docs/images/evaluation.svg)
 
 Entry points: `POST /evaluate` (spawns `python -m backend.evaluate.evaluate` as a **subprocess** — DeepEval manages its own event loop and SIGINT handler, which conflicts with uvicorn's loop if run in-process) or the CLI directly.
 
@@ -193,6 +193,6 @@ cd frontend
 npm run dev          # Vite proxies /api → FastAPI
 
 # Evaluation
-python -m backend.evaluate.evaluate "Axtria Leave Policy V2.9_Jun 2025.pdf" backend/evaluate/goldens/axtria_leave_policy.json
+python -m backend.evaluate.evaluate "your_pdf.pdf" backend/evaluate/goldens/goldens_from_your_pdf.json
 python -m backend.evaluate.compare backend/evaluate/reports/baseline.json backend/evaluate/reports/latest.json
 ```
